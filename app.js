@@ -87,6 +87,21 @@ app.use("/users",logMethod);
   app.use("/products",methodType);
   app.use(allproducts);
 
+  app.get("/", (req, res, next) => {
+    const err = new Error("Internal server error");
+    err.status = 500;
+    next(err);
+  });
+  app.get("/", (req, res, next) => {
+    const err = new Error("Internal server error");
+    err.status = 404;
+    next(err);
+  });
+  app.get("/", (req, res, next) => {
+    const err = new Error("Internal server error");
+    err.status = undefined;
+    next(err);
+  });
 
   app.use((err,req,res,next)=>{
 
