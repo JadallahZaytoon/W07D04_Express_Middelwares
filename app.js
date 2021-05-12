@@ -2,8 +2,11 @@ const express= require("express");
 const app = express();
 const PORT = 3000;
 
+const userhandleRouter = express.Router();
 
-const users = [];
+
+
+const users = ["John", "Mark"];
 
 
 app.use(express.json());
@@ -30,20 +33,40 @@ const logMethod=(req,res,next)=>{
 app.use("/users",logMethod);
 
 
-app.get("/users", (req, res, next) => {
+// app.get("/users", (req, res, next) => {
     
-    if(users===[]){
+//     if(users.length===0){
+//         const err = new Error("Array is empty");
+//         err.status = 500;
+//         next(err)
+//     }
+//     else{
+//         res.json(users);
+//     };
+  
+    
+//   });
+
+ 
+
+  //Create a new express router to handel all requests to /users,
+  // and use it in the application, the endpoint /users should return all users.
+  userhandleRouter.get("/users", (req, res,next) => {
+    if(users.length===0){
         const err = new Error("Array is empty");
         err.status = 500;
+        next(err)
     }
     else{
-        res.json("users");
+        res.json(users);
     };
-  
-    res.json(users);
   });
 
-  app.get((err,req,res,next)=>{
+
+  app.use(userhandleRouter)
+
+
+  app.use((err,req,res,next)=>{
 
     res.status(err.status);
   
@@ -53,13 +76,6 @@ app.get("/users", (req, res, next) => {
       message: err.message,
     },
   });
-  });
-
-  //Create a new express router to handel all requests to /users,
-  // and use it in the application, the endpoint /users should return all users.
-  const userhandle = express.Router();
-  userhandle.post("/users", logMethod, (req, res) => {
-    res.send(users);
   });
 
 
