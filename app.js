@@ -18,6 +18,12 @@ app.get("/",(req,res)=>{
 
 });
 
+app.use((req,res,next)=>{
+    console.log(users);
+    next()
+
+});
+
 const logUsers = (req,res,next)=>{
     console.log(users);
     next();
