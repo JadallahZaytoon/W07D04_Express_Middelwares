@@ -4,6 +4,8 @@ const PORT = 3000;
 
 const userhandleRouter = express.Router();
 
+const products =express.Router();
+
 
 
 const users = ["John", "Mark"];
@@ -70,6 +72,11 @@ app.use("/users",logMethod);
 
 
   app.use(userhandleRouter)
+
+  products.get("/products",(req,res,next)=>{
+    res.send("Products");
+  });
+  app.use(products);
 
 
   app.use((err,req,res,next)=>{
