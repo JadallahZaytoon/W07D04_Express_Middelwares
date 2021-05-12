@@ -76,8 +76,15 @@ app.use("/users",logMethod);
   allproducts.get("/products",(req,res,next)=>{
     products.pop("Mouse");
     products.push("Speaker")
+    console.log(req.method);
     res.send(products);
   });
+  
+  const methodType = (req, res, next) => {
+    
+    next();
+  };
+  app.use("/products",methodType);
   app.use(allproducts);
 
 
