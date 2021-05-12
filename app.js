@@ -4,12 +4,12 @@ const PORT = 3000;
 
 const userhandleRouter = express.Router();
 
-const products =express.Router();
+const allproducts =express.Router();
 
 
 
 const users = ["John", "Mark"];
-
+const products=["Kyebord","Mouse"];
 
 app.use(express.json());
 
@@ -73,10 +73,12 @@ app.use("/users",logMethod);
 
   app.use(userhandleRouter)
 
-  products.get("/products",(req,res,next)=>{
-    res.send("Products");
+  allproducts.get("/products",(req,res,next)=>{
+    products.pop("Mouse");
+    products.push("Speaker")
+    res.send(products);
   });
-  app.use(products);
+  app.use(allproducts);
 
 
   app.use((err,req,res,next)=>{
